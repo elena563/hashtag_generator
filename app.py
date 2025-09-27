@@ -14,18 +14,26 @@ st.markdown("""
         h1 {
             color: #007782 !important;
         }
-        .st-emotion-cache-1kjh33j{
+        button[kind="secondary"]{
             background-color: #007782;
             color: white;
         }
-        .st-emotion-cache-1kjh33j:hover{
+        button[kind="secondary"]:hover{
             background-color: #54a3ac;
         }
         pre {
-        background-color: #ffffff !important;
-        border-radius: 8px;
-        padding: 10px;
-    }
+            background-color: #ffffff !important;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+        }
+        pre, div[data-baseweb="textarea"], div[data-baseweb="select"]{
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .stElementContainer{
+             padding: 0 10px;
+            }
     </style>
 """, unsafe_allow_html=True)
 

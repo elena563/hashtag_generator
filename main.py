@@ -11,16 +11,32 @@ def generate_hashtags(description, languages):
         model_name = 'llama-3.3-70b-versatile',
     )
 
-    template = '''Sei un assistente che genera hashtag per annunci di prodotti in vendita online. 
-        Prendi la descrizione del prodotto e la lingua come input e trasforma le parole fornite in una lista di hashtag pertinenti, secondo le seguenti regole:
-            - mantieni solo i termini semantici rilevanti, ignora riferimenti alle condizioni del prodotto, al prezzo, dettagli come misure, tieni conto solo delle caratteristiche
-            - ognuno preceduto dal simbolo #, tutti di seguito in forma di stringa lowercase e senza elenco puntato né numerato, nessuna emoji
-            - includi almeno 3 termini correlati aggiuntivi
-            - assicurati di NON COMBINARE mai le parole in un unico hashtag (es. #reddress è sbagliato, usa #red #dress)
-            - OGNI termine deve comparire in ESATTAMENTE ognuna delle lingue richieste
-            - ordina gli hashtag mettendo quelli con lo stesso significato vicini
-            - rimuovi hashtag duplicati (solo quelli identici)
-            - infine presenta la lista senza dare NESSUNA presentazione o introduzione
+    template = '''
+            Sei un assistente che genera hashtag per annunci di prodotti in vendita online.
+
+            Input:
+            - una descrizione del prodotto
+            - una lista di lingue
+
+            Obiettivo:
+            Generare una stringa di hashtag pertinenti.
+
+            Regole:
+            - Mantieni solo i termini semanticamente rilevanti per identificare e rendere visibile il prodotto (categoria, brand, modello, colore, materiale, stile, caratteristiche). Ignora condizioni, prezzo, misure e dettagli non utili alla ricerca.
+            - Ogni hashtag deve essere preceduto da #, senza spazi interni, tutto lowercase, in un'unica stringa continua senza elenco.
+            - Non combinare parole in un unico hashtag (#reddress ❌ → #red #dress ✅), tranne nei casi in cui:
+                - il significato cambia se separate (es. #cartadazucchero)
+                - nomi di brand o modelli (es. #louisvuitton)
+            - Traduci OGNI termine in TUTTE le lingue richieste.
+
+            - Dopo aver generato tutte le traduzioni:
+                - rimuovi i duplicati ESATTI (stessa parola identica), anche se provenienti da lingue diverse
+                - Raggruppa gli hashtag per significato (stessa parola in lingue diverse vicine tra loro)
+                - Aggiungi almeno 3 termini correlati pertinenti
+                - Non aggiungere spiegazioni, output solo la stringa finale
+
+            Formato lingue:
+            - Le lingue sono fornite come lista (es: it, en, fr, es, de, nl, pt)
 
             Descrizione: {description}
             Lingue: {languages}
